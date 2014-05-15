@@ -1,0 +1,29 @@
+      <div class="span3">
+        <ul class="sidenav">
+{% if page.menu == "getting-started" %}
+          <li>Getting Started</li>
+            <ul>
+              <li><a href="#setup">Setup</a></li>
+              <li><a href="#networks">Networks</a></li>
+              <li><a href="#components">Components</a></li>
+              <li><a href="#cluster">The Vertigo cluster</a></li>
+              <li><a href="#a-simple-network">A simple network</a></li>
+            </ul>
+          </li>
+          <li><a href="/user-manual">User Manual</a></li>
+{% elsif page.menu == "user-manual" %}
+          <li><a href="/getting-started">Getting Started</a></li>
+          <li><a href="/user-manual">User Manual
+            <ul>
+              <li><a href="/user-manual/networks">Networks</a></li>
+              <li><a href="/user-manual/components">Components</a></li>
+              <li><a href="/user-manual/messaging">Messaging</a></li>
+              <li><a href="/user-manual/network-deployment-and-clustering">Network Deployment and Clustering</a></li>              
+              <li><a href="/user-manual/cluster-management">Cluster Management</a></li>  
+              <li><a href="/user-manual/cluster-wide-shared-data">Cluster-wide Shared Data</a></li>  
+              <li><a href="/user-manual/hooks">Hooks</a></li>  
+              <li><a href="/user-manual/logging">Logging</a></li>  
+              <li><a href="/user-manual/how-it-works">How it works</a></li>
+{% endif %}
+        </ul>
+      </div>
