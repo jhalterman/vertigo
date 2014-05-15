@@ -30,6 +30,14 @@ event bus. The `Cluster` API wraps the event bus API and mimics the core Vert.x
 `Container` interface. To deploy a module or verticle simply call the appropriate
 method on the component `Cluster` instance:
 
+<ul class="nav nav-tabs" id="tabs">
+  <li class="active"><a href="#ex1-java" data-toggle="tab">Java</a></li>
+  <li><a href="#ex1-java8" data-toggle="tab">Java 8</a></li>
+</ul>
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex1-java">
+  
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
 	  @Override
@@ -43,6 +51,24 @@ method on the component `Cluster` instance:
 	    });
 	  }
 	}
+	
+  </div>
+  <div class="tab-pane" id="ex1-java8">
+  
+{:.prettyprint .lang-java}
+	public class MyComponent extends ComponentVerticle {
+	  @Override
+	  public void start() {
+	    cluster.deployVerticle("foo", "foo.js", (r) -> {
+	      if (result.succeeded()) {
+	        // Successfully deployed the verticle!
+	      }
+	    });
+	  }
+	}
+	
+  </div>
+</div>
 
 The `Cluster` API differs in one important aspect from the `Container` API. Because
 cluster deployments are remote, users must provide an *explicit* deployment ID for
@@ -78,12 +104,31 @@ Since deployment IDs in Vertigo clusters are user-defined, users can determine w
 a module or verticle is already deployed with a specific deployment ID. To check if
 a deployment is already deployed in the cluster use the `isDeployed` method.
 
+<ul class="nav nav-tabs" id="tabs">
+  <li class="active"><a href="#ex2-java" data-toggle="tab">Java</a></li>
+  <li><a href="#ex2-java8" data-toggle="tab">Java 8</a></li>
+</ul>
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex2-java">
+
 {:.prettyprint .lang-java}
 	cluster.isDeployed("foo", new Handler<AsyncResult<Boolean>>() {
 	  public void handle(AsyncResult<Boolean> result) {
 	    boolean deployed = result.result(); // Whether the module or verticle is deployed
 	  }
 	});
+	
+  </div>
+  <div class="tab-pane" id="ex2-java8">
+  
+{:.prettyprint .lang-java}
+	cluster.isDeployed("foo", (r) -> {
+	  boolean deployed = result.result(); // Whether the module or verticle is deployed
+	});
+	
+  </div>
+</div>
 
 To check if a module or verticle is deployed over the event bus send a `check` message
 to the cluster, specifying the `module` or `verticle` as the check `type`.
@@ -112,3 +157,10 @@ deployment ID).
 	cluster.deployVerticleTo("foo", "my-group", "foo.js");
 
 By default, all deployments are deployed to the `__DEFAULT__` HA group.
+
+<script>
+$('#tabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>

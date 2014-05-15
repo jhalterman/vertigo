@@ -59,6 +59,11 @@ output ports.
 Messages are not routed through any central router. Rather, components
 communicate with each other directly over the event bus.
 
+{% include snippet8.html ex="1" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex1-java">
+
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
 	  @Override
@@ -70,6 +75,30 @@ communicate with each other directly over the event bus.
 	    });
 	  }
 	}
+	
+  </div>
+  <div class="tab-pane" id="ex1-java8">
+  
+{:.prettyprint .lang-java}
+	public class MyComponent extends ComponentVerticle {
+	  @Override
+	  public void start() {
+	    input.port("in").messageHandler((message) -> output.port("out").send(message));
+	  }
+	}
+	
+  </div>
+  <div class="tab-pane" id="ex1-python">
+  
+TODO
+	
+  </div>
+  <div class="tab-pane" id="ex1-javascript">
+  
+TODO
+	
+  </div>
+</div>
 
 Ports do not have to be explicitly declared. Vertigo will lazily create ports
 if they don't already exist. Messages can be of any type that is supported by the
@@ -85,12 +114,30 @@ While components receive messages on input ports and send messages to output por
 the network configuration is used to define how ports on different components
 relate to one another. Connections between components/ports in your network indicate
 how messages will flow through the network.
+	
+{% include snippet.html ex="2" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex2-java">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("foo");
 	network.addComponent("bar", "bar.js", 2);
 	network.addComponent("baz", "baz.py", 4);
 	network.createConnection("bar", "out", "baz", "in");
+	
+  </div>
+  <div class="tab-pane" id="ex2-python">
+  
+TODO
+	
+  </div>
+  <div class="tab-pane" id="ex2-javascript">
+  
+TODO
+	
+  </div>
+</div>
 
 ## The Vertigo Cluster
 Vertigo provides its own cluster abstraction within the Vert.x cluster. Vertigo
@@ -115,12 +162,30 @@ Vertigo provides all its API functionality through a single `Vertigo` object.
 
 The `Vertigo` object supports creating and deploying networks. Each language
 binding has an equivalent API.
+	
+{% include snippet.html ex="3" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex3-java">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("word-count");
 	network.addComponent("word-feeder", RandomWordCounter.class.getName());
 	network.addComponent("word-counter", WordCounter.class.getName(), 2);
 	network.createConnection("word-feeder", "word", "word-counter", "word", new HashSelector());
+	
+  </div>
+  <div class="tab-pane" id="ex3-python">
+  
+TODO
+	
+  </div>
+  <div class="tab-pane" id="ex3-javascript">
+  
+TODO
+	
+  </div>
+</div>
 
 Vertigo components can be implemented in a variety of languages since they're
 just Vert.x verticles. This network contains two components. The first component
@@ -136,6 +201,16 @@ same component instance.
 
 `random_word_feeder.py`
 
+{% include snippet.html ex="4" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex4-java">
+
+TODO
+	
+  </div>
+  <div class="tab-pane" id="ex4-python">
+  
 {:.prettyprint .lang-python}
 	import vertx
 	from vertigo import component, input
@@ -147,11 +222,29 @@ same component instance.
 	    def feed_random_word(timer_id):
 	      output.send('word', words[rand(len(words)-1)])
 	    vertx.set_periodic(1000, feed_random_word)
+	
+  </div>
+  <div class="tab-pane" id="ex4-javascript">
+  
+TODO
+	
+  </div>
+</div>
 
 Here we simply send a random word to the `word` out port every second.
 
 `word_counter.js`
 
+{% include snippet.html ex="5" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex5-java">
+
+TODO
+	
+  </div>
+  <div class="tab-pane" id="ex5-python">
+  
 {:.prettyprint .lang-javascript}
 	var input = require('vertigo/input');
 	var output = require('vertigo/output');
@@ -164,6 +257,14 @@ Here we simply send a random word to the `word` out port every second.
 	  words[word]++;
 	  output.port('count').send({word: word, count: words[word]});
 	});
+	
+  </div>
+  <div class="tab-pane" id="ex5-javascript">
+  
+TODO
+	
+  </div>
+</div>
 
 This component registers a message handler on the `word` in port, updates
 an internal count for the word, and sends the updated word count on the
@@ -186,12 +287,38 @@ The cluster configuration requires a `cluster` name.
 
 A test cluster can also be deployed locally through the `Vertigo` API.
 
+{% include snippet8.html ex="6" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+  <div class="tab-pane active" id="ex6-java">
+
 {:.prettyprint .lang-java}
 	vertigo.deployCluster("test-cluster", new Handler<AsyncResult<ClusterManager>>() {
 	  public void handle(AsyncResult<ClusterManager> result) {
 	    ClusterManager cluster = result.result();
 	  }
 	});
+	
+  </div>
+  <div class="tab-pane" id="ex6-java8">
+
+{:.prettyprint .lang-java}
+	vertigo.deployCluster("test-cluster", (r) {
+	  ClusterManager cluster = result.result();
+	});
+	
+  </div>
+  <div class="tab-pane" id="ex6-python">
+  
+TODO
+	
+  </div>
+  <div class="tab-pane" id="ex6-javascript">
+  
+TODO
+	
+  </div>
+</div>
 
 Once the cluster has been deployed we can deploy a network to the cluster.
 
@@ -200,3 +327,10 @@ Once the cluster has been deployed we can deploy a network to the cluster.
 
 Vertigo also supports deploying networks from the command line using simple
 JSON configuration files. See [deploying a network from the command line](#deploying-a-network-from-the-command-line).
+
+<script>
+$('#tabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
