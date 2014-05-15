@@ -26,6 +26,11 @@ The cluster API is available in all components via the `cluster` field of the
 The `AsyncMap` interface closely mimics the interface of the Java `Map` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
 
+{% include snippet8.html ex="1" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex1-java">
+  
 {:.prettyprint .lang-java}
 	final AsyncMap<String, String> map = cluster.getMap("foo");
 	map.put("foo", "bar", new Handler<AsyncResult<String>>() {
@@ -41,6 +46,34 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	    }
 	  }
 	});
+	
+</div>
+<div class="tab-pane" id="ex1-java8">
+  
+{:.prettyprint .lang-java}
+	final AsyncMap<String, String> map = cluster.getMap("foo");
+	map.put("foo", "bar", (result) -> {
+	  if (result.succeeded()) {
+	    map.get("foo", (result1) -> {
+	      if (result1.succeeded()) {
+	        String foo = result1.result();
+	      }
+	    });
+	  }
+	});
+	
+</div>
+<div class="tab-pane" id="ex1-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex1-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 If the Vert.x instance is not clustered then Vertigo maps will be backed by
 the Vert.x `ConcurrentSharedMap`. If the Vert.x instance is clustered then maps
@@ -51,6 +84,11 @@ worker verticle to prevent blocking the event loop.
 The `AsyncSet` interface closely mimics the interface of the Java `Set` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
 
+{% include snippet8.html ex="2" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex2-java">
+
 {:.prettyprint .lang-java}
 	final AsyncSet<String> set = cluster.getSet("foo");
 	set.add("bar", new Handler<AsyncResult<Boolean>>() {
@@ -60,6 +98,30 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	    }
 	  }
 	});
+	
+</div>
+<div class="tab-pane" id="ex2-java8">
+  
+{:.prettyprint .lang-java}
+	final AsyncSet<String> set = cluster.getSet("foo");
+	set.add("bar", (result) -> {
+	  if (result.succeeded()) {
+	    set.remove("bar");
+	  }
+	});
+	
+</div>
+<div class="tab-pane" id="ex2-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex2-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 If the Vert.x instance is not clustered then Vertigo sets will be backed by
 the Vert.x `SharedData` sets. If the Vert.x instance is clustered then sets
@@ -70,6 +132,11 @@ worker verticle to prevent blocking the event loop.
 The `AsyncList` interface closely mimics the interface of the Java `List` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
 
+{% include snippet8.html ex="3" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex3-java">
+
 {:.prettyprint .lang-java}
 	AsyncList<String> list = cluster.getList("foo");
 	list.add("bar", new Handler<AsyncResult<Boolean>>() {
@@ -79,6 +146,30 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	    }
 	  }
 	});
+	
+</div>
+<div class="tab-pane" id="ex3-java8">
+  
+{:.prettyprint .lang-java}
+	AsyncList<String> list = cluster.getList("foo");
+	list.add("bar", (result) -> {
+	  if (result.succeeded()) {
+	    list.remove(0);
+	  }
+	});
+	
+</div>
+<div class="tab-pane" id="ex3-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex3-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 If the Vert.x instance is not clustered then Vertigo lists will be backed by
 a custom list implementation on top of the Vert.x `ConcurrentSharedMap`. If the
@@ -88,6 +179,11 @@ accessed over the event bus in a Xync worker verticle to prevent blocking the ev
 ### AsyncQueue
 The `AsyncQueue` interface closely mimics the interface of the Java `Queue` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
+
+{% include snippet8.html ex="4" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex4-java">
 
 {:.prettyprint .lang-java}
 	final AsyncQueue<String> queue = cluster.getQueue("foo");
@@ -104,6 +200,34 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	    }
 	  }
 	});
+	
+</div>
+<div class="tab-pane" id="ex4-java8">
+  
+{:.prettyprint .lang-java}
+	final AsyncQueue<String> queue = cluster.getQueue("foo");
+	queue.add("bar", (result) -> {
+	  if (result.succeeded()) {
+	    queue.poll((result1) -> {
+	      if (result.succeeded()) {
+	        String value = result.result();
+	      }
+	    });
+	  }
+	});
+	
+</div>
+<div class="tab-pane" id="ex4-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex4-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 If the Vert.x instance is not clustered then Vertigo queues will be backed by
 a custom queue implementation on top of the Vert.x `ConcurrentSharedMap`. If the
@@ -112,6 +236,11 @@ accessed over the event bus in a Xync worker verticle to prevent blocking the ev
 
 ### AsyncCounter
 The `AsyncCounter` facilitates generating cluster-wide counters.
+
+{% include snippet8.html ex="5" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex5-java">
 
 {:.prettyprint .lang-java}
 	AsyncCounter counter = cluster.getCounter("foo");
@@ -122,6 +251,30 @@ The `AsyncCounter` facilitates generating cluster-wide counters.
 	    }
 	  }
 	});
+	
+</div>
+<div class="tab-pane" id="ex5-java8">
+  
+{:.prettyprint .lang-java}
+	AsyncCounter counter = cluster.getCounter("foo");
+	counter.incrementAndGet((result) -> {
+	  if (result.succeeded()) {
+	    long value = result.result();
+	  }
+	});
+	
+</div>
+<div class="tab-pane" id="ex5-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex5-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 If the Vert.x instance is not clustered then Vertigo counters will be backed by
 a custom counter implementation on top of the Vert.x `ConcurrentSharedMap`. If the
@@ -160,7 +313,6 @@ data structure to which the message refers. For example, to `put` a value in the
 	          }
 	        }
 	      });
-	
 	    }
 	  }
 	});

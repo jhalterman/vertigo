@@ -30,13 +30,10 @@ event bus. The `Cluster` API wraps the event bus API and mimics the core Vert.x
 `Container` interface. To deploy a module or verticle simply call the appropriate
 method on the component `Cluster` instance:
 
-<ul class="nav nav-tabs" id="tabs">
-  <li class="active"><a href="#ex1-java" data-toggle="tab">Java</a></li>
-  <li><a href="#ex1-java8" data-toggle="tab">Java 8</a></li>
-</ul>
+{% include snippet8.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-  <div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active" id="ex1-java">
   
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -52,8 +49,8 @@ method on the component `Cluster` instance:
 	  }
 	}
 	
-  </div>
-  <div class="tab-pane" id="ex1-java8">
+</div>
+<div class="tab-pane" id="ex1-java8">
   
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -67,7 +64,17 @@ method on the component `Cluster` instance:
 	  }
 	}
 	
-  </div>
+</div>
+<div class="tab-pane" id="ex1-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex1-javascript">
+  
+TODO
+	
+</div>
 </div>
 
 The `Cluster` API differs in one important aspect from the `Container` API. Because
@@ -85,15 +92,51 @@ a module with the deployment ID `foo` in two separate clusters at the same time.
 To undeploy a module or verticle from the cluster call the `undeployModule` or
 `undeployVerticle` method, using the user-defined deployment ID.
 
+{% include snippet.html ex="2" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex2-java">
+  
 {:.prettyprint .lang-java}
 	cluster.undeployVerticle("foo");
+	
+</div>
+<div class="tab-pane" id="ex2-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex2-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 ### Deploying modules and verticles with HA
 Like Vert.x clusters, the Vertigo clusters supports HA deployments. By default, modules
 and verticles are not deployed with HA enabled.
 
+{% include snippet.html ex="3" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex3-java">
+  
 {:.prettyprint .lang-java}
 	cluster.deployVerticle("foo", "foo.js", null, 1, true);
+	
+</div>
+<div class="tab-pane" id="ex3-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex3-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 The last argument in the arguments list indicates whether to deploy the deployment
 with HA. When a Vertigo cluster node fails, any deployments deployed with HA enabled
@@ -104,14 +147,11 @@ Since deployment IDs in Vertigo clusters are user-defined, users can determine w
 a module or verticle is already deployed with a specific deployment ID. To check if
 a deployment is already deployed in the cluster use the `isDeployed` method.
 
-<ul class="nav nav-tabs" id="tabs">
-  <li class="active"><a href="#ex2-java" data-toggle="tab">Java</a></li>
-  <li><a href="#ex2-java8" data-toggle="tab">Java 8</a></li>
-</ul>
+{% include snippet8.html ex="4" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-  <div class="tab-pane active" id="ex2-java">
-
+<div class="tab-pane active" id="ex4-java">
+  
 {:.prettyprint .lang-java}
 	cluster.isDeployed("foo", new Handler<AsyncResult<Boolean>>() {
 	  public void handle(AsyncResult<Boolean> result) {
@@ -119,15 +159,25 @@ a deployment is already deployed in the cluster use the `isDeployed` method.
 	  }
 	});
 	
-  </div>
-  <div class="tab-pane" id="ex2-java8">
+</div>
+<div class="tab-pane" id="ex4-java8">
   
 {:.prettyprint .lang-java}
 	cluster.isDeployed("foo", (r) -> {
 	  boolean deployed = result.result(); // Whether the module or verticle is deployed
 	});
 	
-  </div>
+</div>
+<div class="tab-pane" id="ex4-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex4-javascript">
+  
+TODO
+	
+</div>
 </div>
 
 To check if a module or verticle is deployed over the event bus send a `check` message
@@ -153,14 +203,25 @@ a module or verticle to an HA group call the `deployModuleTo` or `deployVerticle
 methods respectively, passing the target HA group as the second argument (after the
 deployment ID).
 
+{% include snippet.html ex="5" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex5-java">
+  
 {:.prettyprint .lang-java}
 	cluster.deployVerticleTo("foo", "my-group", "foo.js");
+	
+</div>
+<div class="tab-pane" id="ex5-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex5-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 By default, all deployments are deployed to the `__DEFAULT__` HA group.
-
-<script>
-$('#tabs a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>

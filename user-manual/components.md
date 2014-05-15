@@ -18,6 +18,11 @@ they're sending messages.
 ### Creating a component
 To create a Java component, extend the base `ComponentVerticle` class.
 
+{% include snippet.html ex="1" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex1-java">
+
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
 	  @Override
@@ -25,6 +30,19 @@ To create a Java component, extend the base `ComponentVerticle` class.
 	  
 	  }
 	}
+	
+</div>
+<div class="tab-pane" id="ex1-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex1-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 The `ComponentVerticle` base class is simply a special extension of the Vert.x `Verticle`
 that synchronizes with other components in the network at startup and provides Vertigo

@@ -35,8 +35,26 @@ For more information on messaging see [how Vertigo handles messaging](#how-verti
 ### Sending messages on an output port
 To reference an output port, use the `output.port(String name)` method.
 
+{% include snippet.html ex="1" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex1-java">
+
 {:.prettyprint .lang-java}
 	OutputPort port = output.port("out");
+	
+</div>
+<div class="tab-pane" id="ex1-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex1-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 If the referenced output port is not defined in the network configuration, the
 port will be lazily created, though it will not actually reference any connections.
@@ -44,8 +62,26 @@ port will be lazily created, though it will not actually reference any connectio
 Any message that can be sent on the Vert.x event bus can be sent on the output port.
 To send a message on the event bus, simply call the `send` method.
 
+{% include snippet.html ex="2" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex2-java">
+
 {:.prettyprint .lang-java}
 	output.port("out").send("Hello world!");
+	
+</div>
+<div class="tab-pane" id="ex2-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex2-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 Internally, Vertigo will route the message to any connections as defined in the
 network configuration.
@@ -56,10 +92,33 @@ See [providing serializeable messages](#providing-serializeable-messages)
 ### Receiving messages on an input port
 Input ports are referenced in the same was as output ports.
 
+{% include snippet.html ex="3" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex3-java">
+
 {:.prettyprint .lang-java}	
 	InputPort port = input.port("in");
+	
+</div>
+<div class="tab-pane" id="ex3-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex3-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 To receive messages on an input port, register a message handler on the port.
+
+{% include snippet8.html ex="4" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex4-java">
 
 {:.prettyprint .lang-java}
 	input.port("in").messageHandler(new Handler<String>() {
@@ -67,6 +126,25 @@ To receive messages on an input port, register a message handler on the port.
 	    output.port("out").send(message);
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex4-java8">
+
+{:.prettyprint .lang-java}
+	input.port("in").messageHandler((message) -> output.port("out").send(message));
+	
+</div>
+<div class="tab-pane" id="ex4-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex4-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 Note that Vertigo messages arrive in plain format and not in any sort of `Message`
 wrapper. This is because Vertigo messages are inherently uni-directional, and message
@@ -86,16 +164,45 @@ When a new output group is created, Vertigo will await the completion of all gro
 of the same name that were created prior to the new group before sending the new group's
 messages.
 
+{% include snippet8.html ex="5" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex5-java">
+
 {:.prettyprint .lang-java}
 	output.port("out").group("foo", new Handler<OutputGroup>() {
 	  public void handle(OutputGroup group) {
 	    group.send("foo").send("bar").send("baz").end();
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex5-java8">
+
+{:.prettyprint .lang-java}
+	output.port("out").group("foo", (group) -> group.send("foo").send("bar").send("baz").end());
+	
+</div>
+<div class="tab-pane" id="ex5-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex5-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 Note that the group's `end()` method *must* be called in order to indicate completion of
 the group. *Groups are fully asynchronous*, meaning they support asynchronous calls to other
 APIs, and this step is crucial to that functionality.
+
+{% include snippet8.html ex="6" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex6-java">
 
 {:.prettyprint .lang-java}
 	output.port("out").group("foo", new Handler<OutputGroup>() {
@@ -109,9 +216,39 @@ APIs, and this step is crucial to that functionality.
 	    });
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex6-java8">
+
+{:.prettyprint .lang-java}
+	output.port("out").group("foo", (group) -> {
+	    someObject.someAsyncApi((result) -> {
+	    if (result.succeeded()) {
+	      group.send(result.result()).end();
+	    }
+	  });
+	});
+	
+</div>
+<div class="tab-pane" id="ex6-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex6-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 The `OutputGroup` API exposes the same methods as the `OutputPort`. That means that groups
 can be nested and Vertigo will still guarantee ordering across groups.
+
+{% include snippet8.html ex="7" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex7-java">
 
 {:.prettyprint .lang-java}
 	output.port("out").group("foo", new Handler<OutputGroup>() {
@@ -131,10 +268,40 @@ can be nested and Vertigo will still guarantee ordering across groups.
 	    group.end();
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex7-java8">
+
+{:.prettyprint .lang-java}
+	output.port("out").group("foo", (fooGroup) -> {
+	    fooGroup.group("bar", (group) -> group.send(1).send(2).send(3).end());
+	    fooGroup.group("baz", (group) -> group.send(4).send(5).send(6).end());
+	    // Since two child groups were created, this group will not be ended
+	    // until both children have been ended.
+	    fooGroup.end();
+	});
+	
+</div>
+<div class="tab-pane" id="ex7-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex7-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 As with receiving messages, to receive message groups register a handler on an
 input port using the `groupHandler` method, passing a group name as the first
 argument.
+
+{% include snippet8.html ex="8" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex8-java">
 
 {:.prettyprint .lang-java}
 	input.port("in").groupHandler("foo", new Handler<InputGroup>() {
@@ -146,11 +313,35 @@ argument.
 	    });
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex8-java8">
+
+{:.prettyprint .lang-java}
+	input.port("in").groupHandler("foo", (group) -> group.messageHandler((message) -> output.port("out").send(message)));
+	
+</div>
+<div class="tab-pane" id="ex8-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex8-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 The `InputGroup` API also supports a `startHandler` and `endHandler`. The `endHandler`
 can be particularly useful for aggregations. Vertigo guarantees that if a group's
 `endHandler` is called then *all* of the messages sent for that group were received
 by that group.
+
+{% include snippet8.html ex="9" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex9-java">
 
 {:.prettyprint .lang-java}
 	input.port("in").groupHandler("foo", new Handler<InputGroup>() {
@@ -170,9 +361,37 @@ by that group.
 	    });
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex9-java8">
+
+{:.prettyprint .lang-java}
+	input.port("in").groupHandler("foo", (group) -> {
+	  final Set<String> messages = new HashSet<>();
+	  group.messageHandler((message) -> messages.add(message));
+	  group.endHandler((m) -> System.out.println("Received " + messages.size() + " messages in group."));
+	});
+	
+</div>
+<div class="tab-pane" id="ex9-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex9-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 As with output groups, input groups can be nested, representing the same structure
 sent by an output group.
+
+{% include snippet8.html ex="10" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex10-java">
 
 {:.prettyprint .lang-java}
 	input.port("in").groupHandler("foo", new Handler<InputGroup>() {
@@ -197,6 +416,28 @@ sent by an output group.
 	    });
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex10-java8">
+
+{:.prettyprint .lang-java}
+	input.port("in").groupHandler("foo", (fooGroup) -> {
+	  fooGroup.group("bar", (barGroup) -> barGroup.messageHandler((number) -> output.port("bar").send(number)));
+	  fooGroup.group("baz", (bazGroup) -> group.messageHandler((string) -> output.port("baz").send(string)));
+	});
+	
+</div>
+<div class="tab-pane" id="ex10-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex10-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 ### Working with message batches
 Batches are similar to groups in that they represent collections of messages.
@@ -211,18 +452,47 @@ within batches. Batches simply represent windows of output from a port.
 
 The batch API works similarly to the group API, but batches are *not* named.
 
+{% include snippet8.html ex="11" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex11-java">
+
 {:.prettyprint .lang-java}
 	output.port("out").batch(new Handler<OutputBatch>() {
 	  public void handle(OutputBatch batch) {
 	    batch.send("foo").send("bar").send("baz").end();
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex11-java8">
+
+{:.prettyprint .lang-java}
+	output.port("out").batch((batch) -> batch.send("foo").send("bar").send("baz").end());
+	
+</div>
+<div class="tab-pane" id="ex11-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex11-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 Just as with groups, batches need to be explicitly ended. However, only one batch
 can be open for any given connection at any given time, so that means that a new
 batch will not open until the previous batch has been ended.
 
 On the input port side, the batch API works similarly to the group API.
+
+{% include snippet8.html ex="12" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex12-java">
 
 {:.prettyprint .lang-java}
 	input.port("in").batchHandler(new Handler<InputBatch>() {
@@ -243,8 +513,39 @@ On the input port side, the batch API works similarly to the group API.
 	    });
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex12-java8">
+
+{:.prettyprint .lang-java}
+	input.port("in").batchHandler((batch) -> {
+	    // Aggregate all messages from the batch.
+	    final JsonArray messages = new JsonArray();
+	    batch.messageHandler((m) -> messages.add(message));
+	
+	    // Send the aggregated array once the batch is ended.
+	    batch.endHandler((m) -> output.port("out").send(messages));
+	});
+	
+</div>
+<div class="tab-pane" id="ex12-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex12-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 Batches cannot be nested, but they can contain groups.
+
+{% include snippet8.html ex="13" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex13-java">
 
 {:.prettyprint .lang-java}
 	output.port("out").batch(new Handler<OutputBatch>() {
@@ -257,18 +558,44 @@ Batches cannot be nested, but they can contain groups.
 	    batch.end();
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex13-java8">
+
+{:.prettyprint .lang-java}
+	output.port("out").batch((batch) -> {
+	  batch.group("fruits", (group) -> group.send("apple").send("banana").send("peach").end());
+	  batch.end();
+	});
+	
+</div>
+<div class="tab-pane" id="ex13-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex13-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 Even if a batch is ended, it will not internally end and allow the next batch to
 be created until any child groups have been successfully ended.
 
 Groups within batches can be received in the same manner as they are with groups.
 
+{% include snippet8.html ex="14" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex14-java">
+
 {:.prettyprint .lang-java}
 	input.port("in").batchHandler(new Handler<InputBatch>() {
 	  public void handle(InputBatch batch) {
 	    batch.groupHandler("fruits", new Handler<InputGroup>() {
 	      public void handle(InputGroup group) {
-	
 	        final Set<String> fruits = new HashSet<>();
 	        group.messageHandler(new Handler<String>() {
 	          public void handle(String message) {
@@ -285,6 +612,31 @@ Groups within batches can be received in the same manner as they are with groups
 	    });
 	  }
 	});
+	
+</div>
+<div class="tab-pane active" id="ex14-java8">
+
+{:.prettyprint .lang-java}
+	input.port("in").batchHandler((batch) -> {
+	  batch.groupHandler("fruits", (group) -> {
+	    final Set<String> fruits = new HashSet<>();
+	    group.messageHandler((message) -> fruits.add(message));
+	    group.endHandler((m) -> System.out.println("Got all the fruits!"));
+	  });
+	});
+	
+</div>
+<div class="tab-pane" id="ex14-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex14-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 ### Providing serializable messages
 In addition to types supported by the Vert.x event bus, the Vertigo messaging

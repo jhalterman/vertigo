@@ -25,6 +25,11 @@ The `PortLogger` logs to ports named for each logger method:
 The `PortLogger` simple implements the standard Vert.x `Logger` interface.
 So, to log a message to an output port simply call the appropriate log method:
 
+{% include snippet.html ex="1" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex1-java">
+
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
 	  @Override
@@ -32,12 +37,30 @@ So, to log a message to an output port simply call the appropriate log method:
 	    logger.info("Component started successfully!");
 	  }
 	}
+	
+</div>
+<div class="tab-pane" id="ex1-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex1-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 ### Reading log messages
 To listen for log messages from a component, simply add a connection to a network
 configuration listening on the necessary output port. For instance, you could
 aggregate and count log messages from one component by connecting each log port to
 a single input port on another component.
+
+{% include snippet.html ex="2" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex2-java">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("log-test");
@@ -49,11 +72,29 @@ a single input port on another component.
 	network.createConnection("logger", "info", "log-reader", "log").hashSelect();
 	network.createConnection("logger", "debug", "log-reader", "log").hashSelect();
 	network.createConnection("logger", "trace", "log-reader", "log").hashSelect();
+	
+</div>
+<div class="tab-pane" id="ex2-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex2-javascript">
+  
+TODO
+	
+</div>
+</div>
 
 With a hash selector on each connection, we guarantee that the same log message
 will always go to the same `log-reader` instance.
 
 Log messages will arrive as simple strings:
+
+{% include snippet.html ex="3" %}
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active" id="ex3-java">
 
 {:.prettyprint .lang-java}
 	public class LogReader extends ComponentVerticle {
@@ -74,3 +115,16 @@ Log messages will arrive as simple strings:
 	    });
 	  }
 	}
+	
+</div>
+<div class="tab-pane" id="ex3-python">
+  
+TODO
+	
+</div>
+<div class="tab-pane" id="ex3-javascript">
+  
+TODO
+	
+</div>
+</div>
