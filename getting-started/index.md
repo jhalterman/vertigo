@@ -63,7 +63,7 @@ communicate with each other directly over the event bus.
 
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -78,7 +78,7 @@ communicate with each other directly over the event bus.
 	}
 	
 </div>
-<div class="tab-pane" id="ex1-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -89,12 +89,12 @@ communicate with each other directly over the event bus.
 	}
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -118,7 +118,7 @@ how messages will flow through the network.
 
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex2-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("foo");
@@ -127,12 +127,12 @@ how messages will flow through the network.
 	network.createConnection("bar", "out", "baz", "in");
 	
 </div>
-<div class="tab-pane" id="ex2-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex2-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -157,15 +157,32 @@ will automatically failover any failed components.
 ## A Simple Network
 Vertigo provides all its API functionality through a single `Vertigo` object.
 
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active java java8">
+
 {:.prettyprint .lang-java}
 	Vertigo vertigo = new Vertigo(this);
+	
+</div>
+<div class="tab-pane python">
+  
+TODO
+	
+</div>
+<div class="tab-pane javascript">
+  
+TODO
+	
+</div>
+</div>
 
 The `Vertigo` object supports creating and deploying networks. Each language
 binding has an equivalent API.
 
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex3-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("word-count");
@@ -174,12 +191,12 @@ binding has an equivalent API.
 	network.createConnection("word-feeder", "word", "word-counter", "word", new HashSelector());
 	
 </div>
-<div class="tab-pane" id="ex3-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex3-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -202,12 +219,12 @@ same component instance.
 
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex4-java">
+<div class="tab-pane active java java8">
 
 TODO
 	
 </div>
-<div class="tab-pane" id="ex4-python">
+<div class="tab-pane python">
   
 {:.prettyprint .lang-python}
 	import vertx
@@ -222,7 +239,7 @@ TODO
 	    vertx.set_periodic(1000, feed_random_word)
 	
 </div>
-<div class="tab-pane" id="ex4-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -235,12 +252,12 @@ Here we simply send a random word to the `word` out port every second.
 
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex5-java">
+<div class="tab-pane active java java8">
 
 TODO
 	
 </div>
-<div class="tab-pane" id="ex5-python">
+<div class="tab-pane python">
   
 {:.prettyprint .lang-javascript}
 	var input = require('vertigo/input');
@@ -256,7 +273,7 @@ TODO
 	});
 	
 </div>
-<div class="tab-pane" id="ex5-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -286,7 +303,7 @@ A test cluster can also be deployed locally through the `Vertigo` API.
 
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex6-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	vertigo.deployCluster("test-cluster", new Handler<AsyncResult<ClusterManager>>() {
@@ -296,7 +313,7 @@ A test cluster can also be deployed locally through the `Vertigo` API.
 	});
 	
 </div>
-<div class="tab-pane" id="ex6-java8">
+<div class="tab-pane java8">
 
 {:.prettyprint .lang-java}
 	vertigo.deployCluster("test-cluster", (result) -> {
@@ -304,12 +321,12 @@ A test cluster can also be deployed locally through the `Vertigo` API.
 	});
 	
 </div>
-<div class="tab-pane" id="ex6-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex6-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -318,8 +335,25 @@ TODO
 
 Once the cluster has been deployed we can deploy a network to the cluster.
 
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active java java8">
+
 {:.prettyprint .lang-java}
 	cluster.deployNetwork(network);
+	
+</div>
+<div class="tab-pane python">
+  
+TODO
+	
+</div>
+<div class="tab-pane javascript">
+  
+TODO
+	
+</div>
+</div>
 
 Vertigo also supports deploying networks from the command line using simple
 JSON configuration files. See [deploying a network from the command line](#deploying-a-network-from-the-command-line).
