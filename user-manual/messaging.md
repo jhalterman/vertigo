@@ -269,11 +269,11 @@ can be nested and Vertigo will still guarantee ordering across groups.
 
 {:.prettyprint .lang-java}
 	output.port("out").group("foo", (fooGroup) -> {
-	    fooGroup.group("bar", (group) -> group.send(1).send(2).send(3).end());
-	    fooGroup.group("baz", (group) -> group.send(4).send(5).send(6).end());
-	    // Since two child groups were created, this group will not be ended
-	    // until both children have been ended.
-	    fooGroup.end();
+	  fooGroup.group("bar", (group) -> group.send(1).send(2).send(3).end());
+	  fooGroup.group("baz", (group) -> group.send(4).send(5).send(6).end());
+	  // Since two child groups were created, this group will not be ended
+	  // until both children have been ended.
+	  fooGroup.end();
 	});
 	
 </div>
@@ -360,7 +360,7 @@ by that group.
 
 {:.prettyprint .lang-java}
 	input.port("in").groupHandler("foo", (group) -> {
-	  final Set<String> messages = new HashSet<>();
+	  Set<String> messages = new HashSet<>();
 	  group.messageHandler((message) -> messages.add(message));
 	  group.endHandler((m) -> System.out.println("Received " + messages.size() + " messages in group."));
 	});
@@ -510,7 +510,7 @@ On the input port side, the batch API works similarly to the group API.
 {:.prettyprint .lang-java}
 	input.port("in").batchHandler((batch) -> {
 	    // Aggregate all messages from the batch.
-	    final JsonArray messages = new JsonArray();
+	    JsonArray messages = new JsonArray();
 	    batch.messageHandler((m) -> messages.add(message));
 	
 	    // Send the aggregated array once the batch is ended.
@@ -584,7 +584,7 @@ Groups within batches can be received in the same manner as they are with groups
 	  public void handle(InputBatch batch) {
 	    batch.groupHandler("fruits", new Handler<InputGroup>() {
 	      public void handle(InputGroup group) {
-	        final Set<String> fruits = new HashSet<>();
+	        Set<String> fruits = new HashSet<>();
 	        group.messageHandler(new Handler<String>() {
 	          public void handle(String message) {
 	            fruits.add(message);
@@ -607,7 +607,7 @@ Groups within batches can be received in the same manner as they are with groups
 {:.prettyprint .lang-java}
 	input.port("in").batchHandler((batch) -> {
 	  batch.groupHandler("fruits", (group) -> {
-	    final Set<String> fruits = new HashSet<>();
+	    Set<String> fruits = new HashSet<>();
 	    group.messageHandler((message) -> fruits.add(message));
 	    group.endHandler((m) -> System.out.println("Got all the fruits!"));
 	  });
