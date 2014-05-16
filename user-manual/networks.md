@@ -12,6 +12,8 @@ title: Networks
 * [Routing messages between multiple component instances](#routing-messages-between-multiple-component-instances)
 * [Creating networks from JSON](#creating-networks-from-json)
 
+{% include snippet.html %}
+
 Vertigo networks are collections of Vert.x verticles and modules that are connected
 together by the Vert.x event bus. Networks and the relationships therein are defined
 externally to their components, promoting reusability.
@@ -27,22 +29,21 @@ and can thus have any number of instances associated with it.
 ### Creating a network
 To create a new network, create a new `Vertigo` instance and call the `createNetwork` method.
 
-{% include snippet.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	Vertigo vertigo = new Vertigo(this);
 	NetworkConfig network = vertigo.createNetwork("my-network");
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -56,21 +57,20 @@ but more on that later.
 ### Adding components to a network
 To add a component to the network, use one of the `addVerticle` or `addModule` methods.
 
-{% include snippet.html ex="2" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex2-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	network.addVerticle("foo", "foo.js");
 	
 </div>
-<div class="tab-pane" id="ex2-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex2-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -79,10 +79,9 @@ TODO
 
 The `addVerticle` and `addModule` methods have the following signatures:
 
-{% include snippet.html ex="3" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex3-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	addModule(String name, String moduleName);
@@ -95,12 +94,12 @@ The `addVerticle` and `addModule` methods have the following signatures:
 	addVerticle(String name, String main, JsonObject config, int instances);
 	
 </div>
-<div class="tab-pane" id="ex3-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex3-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -110,10 +109,9 @@ TODO
 Just as with networks, Vertigo components are explicitly named. The component name
 *must be unique within the network to which the component belongs*.
 
-{% include snippet.html ex="4" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex4-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("test");
@@ -121,12 +119,12 @@ Just as with networks, Vertigo components are explicitly named. The component na
 	network.addModule("bar", "com.bar~bar~1.0", 4);
 	
 </div>
-<div class="tab-pane" id="ex4-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex4-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -136,10 +134,9 @@ TODO
 The `NetworkConfig` API also exposes an abstract `addComponent` method which detects
 whether the added component is a module or a verticle based on module naming conventions.
 
-{% include snippet.html ex="5" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex5-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	addComponent(String name, String moduleOrMain);
@@ -151,12 +148,12 @@ whether the added component is a module or a verticle based on module naming con
 	network.addComponent("bar", "com.bar~bar~1.0", 4); // Adds a module component.
 	
 </div>
-<div class="tab-pane" id="ex5-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex5-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -178,21 +175,20 @@ binds one component's output port with another component's input port.
 
 To create a connection between two components use the `createConnection` method.
 
-{% include snippet.html ex="6" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex6-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	network.createConnection("foo", "out", "bar", "in");
 	
 </div>
-<div class="tab-pane" id="ex6-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex6-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -246,22 +242,21 @@ on a connection.
 Vertigo supports creating networks from json configurations. To create a network
 from json call the `Vertigo.createNetwork(JsonObject)` method.
 
-{% include snippet.html ex="7" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex7-java">
+<div class="tab-pane java">
 
 {:.prettyprint .lang-java}
 	JsonObject json = new JsonObject().putString("name", "test-network");
 	vertigo.createNetwork(json);
-	
-</div>
-<div class="tab-pane" id="ex7-python">
+
+</div>	
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex7-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	

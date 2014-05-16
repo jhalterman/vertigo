@@ -20,6 +20,8 @@ title: Network Deployment and Clustering
 * [Working with active networks](#working-with-active-networks)
 * [Deploying a network from the command line](#deploying-a-network-from-the-command-line)
 
+{% include snippet8.html %}
+
 Vertigo provides its own cluster management framework on top of the Vert.x cluster.
 Each Vertigo network will always be deployed in a Vertigo cluster. Vertigo clusters
 can be deployed either within a single, non-clustered Vert.x instance or across a
@@ -46,10 +48,9 @@ The cluster agent accepts a few important configuration options:
 Vertigo also provides an API for deploying clusters or individual nodes through the
 Vert.x `Container`.
 
-{% include snippet8.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	Vertigo vertigo = new Vertigo(this);
@@ -60,7 +61,7 @@ Vert.x `Container`.
 	});
 	
 </div>
-<div class="tab-pane" id="ex1-java8">
+<div class="tab-pane java8">
 
 {:.prettyprint .lang-java}
 	Vertigo vertigo = new Vertigo(this);
@@ -69,12 +70,12 @@ Vert.x `Container`.
 	});
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -84,10 +85,9 @@ TODO
 There are several methods for deploying nodes or clusters within the current
 Vert.x instance.
 
-{% include snippet.html ex="2" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex2-java">
+<div class="tab-pane active java java8c">
 
 {:.prettyprint .lang-java}
 	deployCluster(String address);
@@ -96,12 +96,12 @@ Vert.x instance.
 	deployCluster(String address, int nodes, Handler<AsyncResult<ClusterManager>> doneHandler);
 	
 </div>
-<div class="tab-pane" id="ex2-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex2-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -116,21 +116,20 @@ set the system property `net.kuujo.vertigo.cluster`.
 Network deployments are performed through the `ClusterManager` API. To get a
 `ClusterManager` instance for a running Vertigo cluster call the `getCluster` method
 
-{% include snippet.html ex="3" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex3-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	ClusterManager cluster = vertigo.getCluster("test-cluster");
 	
 </div>
-<div class="tab-pane" id="ex3-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex3-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -145,10 +144,9 @@ perform all the same operations as are available through the API over the event 
 
 To send a message to a cluster simply send the message to the cluster address.
 
-{% include snippet8.html ex="4" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex4-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	JsonObject message = new JsonObject()
@@ -163,7 +161,7 @@ To send a message to a cluster simply send the message to the cluster address.
 	});
 	
 </div>
-<div class="tab-pane" id="ex4-java8">
+<div class="tab-pane java8">
 
 {:.prettyprint .lang-java}
 	JsonObject message = new JsonObject()
@@ -176,12 +174,12 @@ To send a message to a cluster simply send the message to the cluster address.
 	});
 	
 </div>
-<div class="tab-pane" id="ex4-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex4-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -196,10 +194,9 @@ be outline in the following documentation.
 To deploy a network use the `deployNetwork` methods on the `ClusterManager` for
 the cluster to which the network should be deployed.
 
-{% include snippet.html ex="5" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex5-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("test");
@@ -210,12 +207,12 @@ the cluster to which the network should be deployed.
 	cluster.deployNetwork(network);
 	
 </div>
-<div class="tab-pane" id="ex5-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex5-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -233,10 +230,9 @@ in the given cluster.
 To determine when the network has been successfully deployed pass an `AsyncResult`
 handler to the `deployNetwork` method.
 
-{% include snippet.html ex="6" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex6-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	cluster.deployNetwork(network, new Handler<AsyncResult<ActiveNetwor>>() {
@@ -248,12 +244,12 @@ handler to the `deployNetwork` method.
 	});
 	
 </div>
-<div class="tab-pane" id="ex6-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex6-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -263,10 +259,9 @@ TODO
 You can also deploy the network from the `Vertigo` API by naming the cluster
 to which to deploy the network.
 
-{% include snippet.html ex="7" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex7-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	vertigo.deployNetwork("test-cluster", network, new Handler<AsyncResult<ActiveNetwor>>() {
@@ -278,12 +273,12 @@ to which to deploy the network.
 	});
 	
 </div>
-<div class="tab-pane" id="ex7-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex7-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -295,10 +290,9 @@ Networks can be deployed programmatically from JSON configurations. To deploy
 a network from JSON configuration simply pass the `JsonObject` configuration
 in place of the `NetworkConfig`
 
-{% include snippet.html ex="8" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex8-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	JsonObject network = new JsonObject()
@@ -310,12 +304,12 @@ in place of the `NetworkConfig`
 	cluster.deployNetwork(network);
 	
 </div>
-<div class="tab-pane" id="ex8-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex8-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -344,10 +338,9 @@ as a `JsonObject`.
 
 If successful, the cluster will reply with a `status` of `ok`.
 
-{% include snippet.html ex="9" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex9-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	vertx.eventBus().send("test-cluster", message, new Handler<Message<JsonObject>>() {
@@ -359,12 +352,12 @@ If successful, the cluster will reply with a `status` of `ok`.
 	});
 	
 </div>
-<div class="tab-pane" id="ex9-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex9-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -378,10 +371,9 @@ For information on the JSON configuration format see
 To undeploy a *complete* network from a cluster call the `undeployNetwork`
 method, passing the network name as the first argument.
 
-{% include snippet.html ex="10" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex10-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	cluster.undeployNetwork("test", new Handler<AsyncResult<Void>>() {
@@ -393,12 +385,12 @@ method, passing the network name as the first argument.
 	});
 	
 </div>
-<div class="tab-pane" id="ex10-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex10-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -431,10 +423,9 @@ action. To undeploy a network over the event bus use the `undeploy` action, spec
 The `network` field can also contain a JSON configuration to undeploy. If the undeployment
 is successful, the cluster will reply with a `status` of `ok`.
 
-{% include snippet.html ex="11" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex11-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	JsonObject message = new JsonObject()
@@ -450,12 +441,12 @@ is successful, the cluster will reply with a `status` of `ok`.
 	});
 	
 </div>
-<div class="tab-pane" id="ex11-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex11-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -465,10 +456,9 @@ TODO
 ### Checking if a network is deployed
 To check if a network is deployed in the cluster use the `isDeployed` method.
 
-{% include snippet.html ex="12" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex12-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	cluster.isDeployed("test", new Handler<AsyncResult<Boolean>>() {
@@ -480,12 +470,12 @@ To check if a network is deployed in the cluster use the `isDeployed` method.
 	});
 	
 </div>
-<div class="tab-pane" id="ex12-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex12-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -511,10 +501,9 @@ to the cluster specifying a `network` type along with the `network` name.
 Send the `check` message to the cluster event bus address. If successful, the cluster will
 reply with a boolean `result` indicating whether the network is deployed in the cluster.
 
-{% include snippet.html ex="13" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex13-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	JsonObject message = new JsonObject()
@@ -530,12 +519,12 @@ reply with a boolean `result` indicating whether the network is deployed in the 
 	});
 	
 </div>
-<div class="tab-pane" id="ex13-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex13-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -545,10 +534,9 @@ TODO
 ### Listing networks running in a cluster
 To list the networks running in a cluster call the `getNetworks` method.
 
-{% include snippet.html ex="14" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex14-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	cluster.getNetworks(new Handler<AsyncResult<Collection<ActiveNetwork>>>() {
@@ -558,12 +546,12 @@ To list the networks running in a cluster call the `getNetworks` method.
 	});
 	
 </div>
-<div class="tab-pane" id="ex14-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex14-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -575,21 +563,20 @@ to reconfigure the running network, but more on that later. The current network
 configuration can be retrieved from the `ActiveNetwork` by calling the `getConfig`
 method.
 
-{% include snippet.html ex="15" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex15-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	NetworkConfig config = network.getConfig();
 	
 </div>
-<div class="tab-pane" id="ex15-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex15-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -607,10 +594,9 @@ action.
 If successful, the cluster will reply with a `result` containing an array of
 configuration objects for each network running in the cluster.
 
-{% include snippet.html ex="16" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex16-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	JsonObject message = new JsonObject()
@@ -624,12 +610,12 @@ configuration objects for each network running in the cluster.
 	});
 	
 </div>
-<div class="tab-pane" id="ex16-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex16-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -640,10 +626,9 @@ TODO
 Vertigo networks can be reconfigured after deployment, so sometimes it's useful
 to deploy an empty network with no components or connections.
 
-{% include snippet.html ex="17" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex17-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	cluster.deployNetwork("test", new Handler<AsyncResult<ActiveNetwork>>() {
@@ -653,12 +638,12 @@ to deploy an empty network with no components or connections.
 	});
 	
 </div>
-<div class="tab-pane" id="ex17-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex17-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -672,10 +657,9 @@ will automatically update the network with any new components.
 To deploy a bare network over the event bus, pass a `String` network name
 in the `network` field rather than a JSON network configuration.
 
-{% include snippet.html ex="18" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex18-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	JsonObject message = new JsonObject()
@@ -691,12 +675,12 @@ in the `network` field rather than a JSON network configuration.
 	});
 	
 </div>
-<div class="tab-pane" id="ex18-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex18-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -709,10 +693,9 @@ deployed. After a network is deployed users can add or remove components or
 connections from the network. To reconfigure a running network simply deploy
 or undeploy a network configuration of the same name.
 
-{% include snippet.html ex="19" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex19-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	// Create and deploy a two component network.
@@ -730,12 +713,12 @@ or undeploy a network configuration of the same name.
 	});
 	
 </div>
-<div class="tab-pane" id="ex19-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex19-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -768,10 +751,9 @@ the running network in the appropriate cluster.
 
 To load an active network you can call `getNetwork` on a cluster.
 
-{% include snippet.html ex="20" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex20-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	cluster.getNetwork("test", new Handler<AsyncResult<ActiveNetwork>>() {
@@ -782,12 +764,12 @@ To load an active network you can call `getNetwork` on a cluster.
 	});
 	
 </div>
-<div class="tab-pane" id="ex20-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex20-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -797,10 +779,9 @@ TODO
 The active network API also supports `AsyncResult` handlers so you can determine
 when the network has been updated with the new configuration.
 
-{% include snippet.html ex="21" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex21-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	network.createConnection("foo", "out", "bar", "in", new Handler<AsyncResult<ActiveNetwork>>() {
@@ -810,12 +791,12 @@ when the network has been updated with the new configuration.
 	});
 	
 </div>
-<div class="tab-pane" id="ex21-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex21-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -825,21 +806,20 @@ TODO
 Each `ActiveNetwork` also contains an internal `NetworkConfig` which can be
 retrieved by the `getConfig` method.
 
-{% include snippet.html ex="22" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex22-java">
+<div class="tab-pane active java java8">
 
 {:.prettyprint .lang-java}
 	NetworkConfig config = network.getConfig();
 	
 </div>
-<div class="tab-pane" id="ex22-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex22-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	

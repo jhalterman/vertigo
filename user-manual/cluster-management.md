@@ -13,6 +13,8 @@ title: Cluster Management
 * [Deploying modules and verticles with HA](#deploying-modules-and-verticles-with-ha)
 * [Working with HA groups](#working-with-ha-groups)
 
+{% include snippet8.html %}
+
 Vertigo clusters support remote deployments over the event bus through
 [Xync](http://github.com/kuujo/xync). Users can use the Vertigo cluster API to
 remotely deploy Vert.x modules and verticles from Vertigo components.
@@ -30,10 +32,9 @@ event bus. The `Cluster` API wraps the event bus API and mimics the core Vert.x
 `Container` interface. To deploy a module or verticle simply call the appropriate
 method on the component `Cluster` instance:
 
-{% include snippet8.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
   
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -50,7 +51,7 @@ method on the component `Cluster` instance:
 	}
 	
 </div>
-<div class="tab-pane" id="ex1-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -65,12 +66,12 @@ method on the component `Cluster` instance:
 	}
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -92,21 +93,20 @@ a module with the deployment ID `foo` in two separate clusters at the same time.
 To undeploy a module or verticle from the cluster call the `undeployModule` or
 `undeployVerticle` method, using the user-defined deployment ID.
 
-{% include snippet.html ex="2" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex2-java">
+<div class="tab-pane active java java8">
   
 {:.prettyprint .lang-java}
 	cluster.undeployVerticle("foo");
 	
 </div>
-<div class="tab-pane" id="ex2-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex2-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -117,21 +117,20 @@ TODO
 Like Vert.x clusters, the Vertigo clusters supports HA deployments. By default, modules
 and verticles are not deployed with HA enabled.
 
-{% include snippet.html ex="3" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex3-java">
+<div class="tab-pane active java java8">
   
 {:.prettyprint .lang-java}
 	cluster.deployVerticle("foo", "foo.js", null, 1, true);
 	
 </div>
-<div class="tab-pane" id="ex3-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex3-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -147,10 +146,9 @@ Since deployment IDs in Vertigo clusters are user-defined, users can determine w
 a module or verticle is already deployed with a specific deployment ID. To check if
 a deployment is already deployed in the cluster use the `isDeployed` method.
 
-{% include snippet8.html ex="4" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex4-java">
+<div class="tab-pane active java">
   
 {:.prettyprint .lang-java}
 	cluster.isDeployed("foo", new Handler<AsyncResult<Boolean>>() {
@@ -160,7 +158,7 @@ a deployment is already deployed in the cluster use the `isDeployed` method.
 	});
 	
 </div>
-<div class="tab-pane" id="ex4-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	cluster.isDeployed("foo", (r) -> {
@@ -168,12 +166,12 @@ a deployment is already deployed in the cluster use the `isDeployed` method.
 	});
 	
 </div>
-<div class="tab-pane" id="ex4-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex4-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -203,21 +201,20 @@ a module or verticle to an HA group call the `deployModuleTo` or `deployVerticle
 methods respectively, passing the target HA group as the second argument (after the
 deployment ID).
 
-{% include snippet.html ex="5" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex5-java">
+<div class="tab-pane active java java8">
   
 {:.prettyprint .lang-java}
 	cluster.deployVerticleTo("foo", "my-group", "foo.js");
 	
 </div>
-<div class="tab-pane" id="ex5-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex5-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	

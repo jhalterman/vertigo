@@ -9,6 +9,8 @@ This is a brief tutorial that will help guide you through high-level Vertigo
 concepts and go through a simple network example. Check out the repository
 for more [examples](https://github.com/kuujo/vertigo/tree/master/examples).
 
+{% include snippet8.html ex="1" %}
+
 ## Setup
 Vertigo can be added to your project as a Maven dependency or included in
 your modules via the Vert.x module system.
@@ -59,7 +61,6 @@ output ports.
 Messages are not routed through any central router. Rather, components
 communicate with each other directly over the event bus.
 
-{% include snippet8.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
 <div class="tab-pane active" id="ex1-java">
@@ -114,8 +115,7 @@ While components receive messages on input ports and send messages to output por
 the network configuration is used to define how ports on different components
 relate to one another. Connections between components/ports in your network indicate
 how messages will flow through the network.
-	
-{% include snippet.html ex="2" %}
+
 {::options parse_block_html="true" /}
 <div class="tab-content">
 <div class="tab-pane active" id="ex2-java">
@@ -162,8 +162,7 @@ Vertigo provides all its API functionality through a single `Vertigo` object.
 
 The `Vertigo` object supports creating and deploying networks. Each language
 binding has an equivalent API.
-	
-{% include snippet.html ex="3" %}
+
 {::options parse_block_html="true" /}
 <div class="tab-content">
 <div class="tab-pane active" id="ex3-java">
@@ -201,7 +200,6 @@ same component instance.
 
 `random_word_feeder.py`
 
-{% include snippet.html ex="4" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
 <div class="tab-pane active" id="ex4-java">
@@ -235,7 +233,6 @@ Here we simply send a random word to the `word` out port every second.
 
 `word_counter.js`
 
-{% include snippet.html ex="5" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
 <div class="tab-pane active" id="ex5-java">
@@ -287,7 +284,6 @@ The cluster configuration requires a `cluster` name.
 
 A test cluster can also be deployed locally through the `Vertigo` API.
 
-{% include snippet8.html ex="6" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
 <div class="tab-pane active" id="ex6-java">

@@ -9,6 +9,8 @@ title: Components
 * [Creating a component](#creating-a-component)
 * [The elements of a Vertigo component](#the-elements-of-a-vertigo-component)
 
+{% include snippet.html %}
+
 Networks are made up of any number of *components* which are simply Vert.x verticles or
 modules that are connected together according to the network configuration. Each component
 is a "black box" that receives input on named input ports and sends output to named output
@@ -18,10 +20,9 @@ they're sending messages.
 ### Creating a component
 To create a Java component, extend the base `ComponentVerticle` class.
 
-{% include snippet.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -32,12 +33,12 @@ To create a Java component, extend the base `ComponentVerticle` class.
 	}
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	

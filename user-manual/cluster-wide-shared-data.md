@@ -13,6 +13,8 @@ title: Cluster Wide Shared Data
 * [AsyncCounter](#asynccounter)
 * [Accessing shared data over the event bus](#accessing-shared-data-over-the-event-bus)
 
+{% include snippet8.html %}
+
 Cluster-wide shared data structures are made available via the same API as clustering.
 If the current Vert.x instance is a Hazelcast clustered instance then cluster-wide
 shared data structures will be backed by Hazelcast data structures. If the current
@@ -26,10 +28,9 @@ The cluster API is available in all components via the `cluster` field of the
 The `AsyncMap` interface closely mimics the interface of the Java `Map` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
 
-{% include snippet8.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
   
 {:.prettyprint .lang-java}
 	final AsyncMap<String, String> map = cluster.getMap("foo");
@@ -48,7 +49,7 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex1-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	final AsyncMap<String, String> map = cluster.getMap("foo");
@@ -63,12 +64,12 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -84,10 +85,9 @@ worker verticle to prevent blocking the event loop.
 The `AsyncSet` interface closely mimics the interface of the Java `Set` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
 
-{% include snippet8.html ex="2" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex2-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	final AsyncSet<String> set = cluster.getSet("foo");
@@ -100,7 +100,7 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex2-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	final AsyncSet<String> set = cluster.getSet("foo");
@@ -111,12 +111,12 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex2-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex2-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -132,10 +132,9 @@ worker verticle to prevent blocking the event loop.
 The `AsyncList` interface closely mimics the interface of the Java `List` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
 
-{% include snippet8.html ex="3" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex3-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	AsyncList<String> list = cluster.getList("foo");
@@ -148,7 +147,7 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex3-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	AsyncList<String> list = cluster.getList("foo");
@@ -159,12 +158,12 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex3-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex3-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -180,10 +179,9 @@ accessed over the event bus in a Xync worker verticle to prevent blocking the ev
 The `AsyncQueue` interface closely mimics the interface of the Java `Queue` interface,
 but uses `Handler<AsyncResult<T>>` rather than return values.
 
-{% include snippet8.html ex="4" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex4-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	final AsyncQueue<String> queue = cluster.getQueue("foo");
@@ -202,7 +200,7 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex4-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	final AsyncQueue<String> queue = cluster.getQueue("foo");
@@ -217,12 +215,12 @@ but uses `Handler<AsyncResult<T>>` rather than return values.
 	});
 	
 </div>
-<div class="tab-pane" id="ex4-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex4-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -237,10 +235,9 @@ accessed over the event bus in a Xync worker verticle to prevent blocking the ev
 ### AsyncCounter
 The `AsyncCounter` facilitates generating cluster-wide counters.
 
-{% include snippet8.html ex="5" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex5-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	AsyncCounter counter = cluster.getCounter("foo");
@@ -253,7 +250,7 @@ The `AsyncCounter` facilitates generating cluster-wide counters.
 	});
 	
 </div>
-<div class="tab-pane" id="ex5-java8">
+<div class="tab-pane java8">
   
 {:.prettyprint .lang-java}
 	AsyncCounter counter = cluster.getCounter("foo");
@@ -264,12 +261,12 @@ The `AsyncCounter` facilitates generating cluster-wide counters.
 	});
 	
 </div>
-<div class="tab-pane" id="ex5-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex5-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -288,6 +285,10 @@ API methods. Each shared data message must contain a `type` and the `name` of th
 data structure to which the message refers. For example, to `put` a value in the
 `foo` map we do the following:
 
+{::options parse_block_html="true" /}
+<div class="tab-content">
+<div class="tab-pane active java java8">
+
 {:.prettyprint .lang-java}
 	// Put key "bar" to "baz" in map "foo"
 	JsonObject message = new JsonObject()
@@ -299,7 +300,6 @@ data structure to which the message refers. For example, to `put` a value in the
 	vertx.eventBus().send("test-cluster", message, new Handler<Message<JsonObject>>() {
 	  public void handle(Message<JsonObject> reply) {
 	    if (reply.body().getString("status").equals("ok")) {
-	
 	      // Get the value of key "bar" in map "foo"
 	      JsonObject message = new JsonObject()
 	        .putString("type", "map")
@@ -316,3 +316,16 @@ data structure to which the message refers. For example, to `put` a value in the
 	    }
 	  }
 	});
+	
+</div>
+<div class="tab-pane python">
+  
+TODO
+	
+</div>
+<div class="tab-pane javascript">
+  
+TODO
+	
+</div>
+</div>

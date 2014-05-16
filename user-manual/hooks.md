@@ -11,7 +11,8 @@ title: Hooks
 * [IOHook](#iohook)
 * [ComponentHook](#componenthook)
 
-## Hooks
+{% include snippet.html %}
+
 Vertigo provides a special mechanism for hooking into component and messaging
 events. Hooks are objects that are added to the network configuration and receive
 notifications when certain events occur. All hooks implement the `JsonSerializable`
@@ -27,26 +28,24 @@ to the `target` element of a `ConnectionConfig`.
 
 To define an input hook implement the `InputHook` interface.
 
-{% include snippet.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class MyInputHook implements InputHook {
 	  @Override
 	  public void handleReceive(Object message) {
-	  
 	  }
 	}
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -59,21 +58,20 @@ will be called whenever a message is received on the connection.
 To add the hook to a connection use the `addHook` method on a `ConnectionConfig.Target`
 instance.
 
-{% include snippet.html ex="2" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex2-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	network.createConnection("foo", "out", "bar", "in").getTarget().addHook(new MyInputHook());
 	
 </div>
-<div class="tab-pane" id="ex2-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex2-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -87,26 +85,24 @@ to the `source` element of a `ConnectionConfig`.
 
 To define an output hook implement the `OutputHook` interface.
 
-{% include snippet.html ex="3" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex3-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class MyOutputHook implements OutputHook {
 	  @Override
 	  public void handleSend(Object message) {
-	  
 	  }
 	}
 	
 </div>
-<div class="tab-pane" id="ex3-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex3-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -119,21 +115,20 @@ will be called whenever a message is sent on the connection.
 To add the hook to a connection use the `addHook` method on a `ConnectionConfig.Source`
 instance.
 
-{% include snippet.html ex="4" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex4-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	network.createConnection("foo", "out", "bar", "in").getSource().addHook(new MyOutputHook());
 	
 </div>
-<div class="tab-pane" id="ex4-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex4-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -147,31 +142,28 @@ on either side of the connection. For the sending side of the connection, the ho
 will be called when a message is sent, and for the receiving side of the connection,
 the hook will be called when a message is received.
 
-{% include snippet.html ex="5" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex5-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class MyIOHook implements IOHook {
 	  @Override
 	  public void handleSend(Object message) {
-	  
 	  }
 	
 	  @Override
 	  public void handleReceive(Object message) {
-	  
 	  }
 	}
 	
 </div>
-<div class="tab-pane" id="ex5-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex5-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -180,21 +172,20 @@ TODO
 
 To add the hook to a connection use the `addHook` method on a `ConnectionConfig` instance.
 
-{% include snippet.html ex="6" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex6-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	network.createConnection("foo", "out", "bar", "in").addHook(new MyIOHook());
 	
 </div>
-<div class="tab-pane" id="ex6-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex6-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -209,41 +200,36 @@ Since component hooks are added at the component level, the `handleSend` and
 on *any* port. Additionally, the component hook can receive notifications of when
 the component has started and stopped as well.
 
-{% include snippet.html ex="7" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex7-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class MyComponentHook implements ComponentHook {
 	  @Override
 	  public void handleStart(Component component) {
-	  
 	  }
 	
 	  @Override
 	  public void handleSend(Object message) {
-	  
 	  }
 	
 	  @Override
 	  public void handleReceive(Object message) {
-	  
 	  }
 	
 	  @Override
 	  public void handleStop(Component component) {
-	  
 	  }
 	}
 	
 </div>
-<div class="tab-pane" id="ex7-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex7-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -256,21 +242,20 @@ along with additional information about the component configuration.
 
 Component hooks are added to `ComponentConfig` instances within the network configuration.
 
-{% include snippet.html ex="8" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex8-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	network.addComponent("foo", "foo.js", 2).addHook(new MyComponentHook());
 	
 </div>
-<div class="tab-pane" id="ex8-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex8-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	

@@ -9,6 +9,8 @@ title: Logging
 * [Logging messages to output ports](#logging-messages-to-output-ports)
 * [Reading log messages](#reading-log-messages)
 
+{% include snippet.html %}
+
 Each Vertigo component contains a special `PortLogger` which logs messages
 to component output ports in addition to standard Vert.x log files. This allows
 other components to listen for log messages on input ports.
@@ -25,10 +27,9 @@ The `PortLogger` logs to ports named for each logger method:
 The `PortLogger` simple implements the standard Vert.x `Logger` interface.
 So, to log a message to an output port simply call the appropriate log method:
 
-{% include snippet.html ex="1" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex1-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class MyComponent extends ComponentVerticle {
@@ -39,12 +40,12 @@ So, to log a message to an output port simply call the appropriate log method:
 	}
 	
 </div>
-<div class="tab-pane" id="ex1-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex1-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -57,10 +58,9 @@ configuration listening on the necessary output port. For instance, you could
 aggregate and count log messages from one component by connecting each log port to
 a single input port on another component.
 
-{% include snippet.html ex="2" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex2-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	NetworkConfig network = vertigo.createNetwork("log-test");
@@ -74,12 +74,12 @@ a single input port on another component.
 	network.createConnection("logger", "trace", "log-reader", "log").hashSelect();
 	
 </div>
-<div class="tab-pane" id="ex2-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex2-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
@@ -91,10 +91,9 @@ will always go to the same `log-reader` instance.
 
 Log messages will arrive as simple strings:
 
-{% include snippet.html ex="3" %}
 {::options parse_block_html="true" /}
 <div class="tab-content">
-<div class="tab-pane active" id="ex3-java">
+<div class="tab-pane active java">
 
 {:.prettyprint .lang-java}
 	public class LogReader extends ComponentVerticle {
@@ -117,12 +116,12 @@ Log messages will arrive as simple strings:
 	}
 	
 </div>
-<div class="tab-pane" id="ex3-python">
+<div class="tab-pane python">
   
 TODO
 	
 </div>
-<div class="tab-pane" id="ex3-javascript">
+<div class="tab-pane javascript">
   
 TODO
 	
